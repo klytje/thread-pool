@@ -502,6 +502,14 @@ public:
         paused = false;
     }
 
+    [[nodiscard]] std::vector<std::thread::id> get_thread_ids() {
+        std::vector<std::thread::id> thread_ids;
+        for (int i = 0; i < thread_count; ++i){
+            thread_ids.push_back(threads[i].get_id());
+        }
+        return thread_ids;
+    }
+
     /**
      * @brief Wait for tasks to be completed. Normally, this function waits for all tasks, both those that are currently running in the threads and those that are still waiting in the queue. However, if the pool is paused, this function only waits for the currently running tasks (otherwise it would wait forever). Note: To wait for just one specific task, use submit() instead, and call the wait() member function of the generated future.
      */
