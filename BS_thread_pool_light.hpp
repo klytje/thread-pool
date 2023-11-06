@@ -188,6 +188,14 @@ public:
         return task_promise->get_future();
     }
 
+    [[nodiscard]] std::vector<std::thread::id> get_thread_ids() {
+        std::vector<std::thread::id> thread_ids;
+        for (int i = 0; i < thread_count; ++i){
+            thread_ids.push_back(threads[i].get_id());
+        }
+        return thread_ids;
+    }
+
     /**
      * @brief Wait for tasks to be completed. Normally, this function waits for all tasks, both those that are currently running in the threads and those that are still waiting in the queue. Note: To wait for just one specific task, use submit() instead, and call the wait() member function of the generated future.
      */
